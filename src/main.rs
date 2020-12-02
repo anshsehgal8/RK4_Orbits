@@ -174,11 +174,20 @@ fn main()
     };
     let mut t = 0.0;
     let dt = 0.01;
+    let mut x1_results = Vec::new();
+    let mut y1_results = Vec::new();
+    let mut x2_results = Vec::new();
+    let mut y2_results = Vec::new();
     while t < 20.0 {
         s1 = rk4(s1,dt);
         println!("{:+0.8} {:+0.8} {:+0.8} {:+0.8} {:+0.8}", t, s1.x1, s1.y1, s1.x2, s1.y2);
+        x1_results.push(s1.x1);
+        y1_results.push(s1.y1);
+        x2_results.push(s1.x2);
+        y2_results.push(s1.y2);
         t = t + dt;
     }
 
-    //let file = File::open("output.h5");
+
+
 }
