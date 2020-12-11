@@ -1,6 +1,7 @@
 use std::ops::Mul;
 use std::ops::Add;
-//use hdf5::File;
+use hdf5::{File, Group, H5Type};
+use kepler_two_body::{OrbitalElements, OrbitalState};
 
 static GRAVITATIONAL_CONSTANT_G: f64 = 1.0; //6.67E-2;
 static MASS1:f64 = 1.0;
@@ -187,6 +188,14 @@ fn main()
         y2_results.push(s1.y2);
         t = t + dt;
     }
+    
+    let file = File::create("output.h5").unwrap();
+    let group = file.create_group("data").unwrap();
+    group.new_dataset::<f64>().create("x1",x1_results.len()).unwrap().write_raw(&x1_results);
+    group.new_dataset::<f64>().create("y1",y1_results.len()).unwrap().write_raw(&y1_results);
+    group.new_dataset::<f64>().create("x2",x2_results.len()).unwrap().write_raw(&x2_results);
+    group.new_dataset::<f64>().create("y2",y2_results.len()).unwrap().write_raw(&y2_results);
+
 
 
 
